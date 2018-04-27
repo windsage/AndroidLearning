@@ -4,6 +4,7 @@ import android.animation.ValueAnimator
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.animation.*
+import com.chao.practice.grammar.MyGrammar
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -22,6 +23,9 @@ class MainActivity : AppCompatActivity() {
         val animationSet = AnimationUtils.loadAnimation(this, R.anim.multi_anim)
 
 //        btn.startAnimation(animationSet)
+        val grammar = MyGrammar()
+        val array = intArrayOf(3, 12, 24, 56, 37, 53, 87)
+        grammar.bubbleSort(array)
     }
 
     private fun valueAnim() {
