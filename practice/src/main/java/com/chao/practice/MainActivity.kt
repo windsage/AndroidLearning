@@ -1,27 +1,42 @@
 package com.chao.practice
 
+import android.animation.ValueAnimator
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.animation.*
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    val TAG: String = javaClass.simpleName
+    private val TAG: String = javaClass.simpleName
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         Thread(Runnable { Thread.sleep(3000) }).start()
-        btn.setOnClickListener { Log.e(TAG, "btn is click") }
+        btn.setOnClickListener { valueAnim() }
         val animationFromRes = AnimationUtils.loadAnimation(this, R.anim.translate_animation)
         val scaleAnimationFromRes = AnimationUtils.loadAnimation(this, R.anim.scale_animation)
         val rotateAnimation = AnimationUtils.loadAnimation(this, R.anim.rotate_animation)
         val alphaAnimation = AnimationUtils.loadAnimation(this, R.anim.alpha_animation)
 
-        val animationSet = AnimationUtils.loadAnimation(this,R.anim.multi_anim)
+        val animationSet = AnimationUtils.loadAnimation(this, R.anim.multi_anim)
 
-        btn.startAnimation(animationSet)
+//        btn.startAnimation(animationSet)
+    }
+
+    private fun valueAnim() {
+        val valueAnimator = ValueAnimator.ofInt(0, 10)
+        valueAnimator.duration = 10000
+        valueAnimator.startDelay = 500
+        valueAnimator.repeatCount = 0
+        valueAnimator.repeatMode = ValueAnimator.RESTART
+        valueAnimator.addUpdateListener {
+            val currentValue = it.animatedValue
+            System.out.println("current value is $currentValue")
+            btn.text = currentValue.toString()
+            btn.requestLayout()
+        }
+        valueAnimator.start()
     }
 
 
@@ -57,7 +72,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    private fun createAnimSet():AnimationSet{
+    private fun createAnimSet(): AnimationSet {
         val animationSet = AnimationSet(true)
         animationSet.addAnimation(createRotateAnim())
         animationSet.addAnimation(createAlphaAnim())

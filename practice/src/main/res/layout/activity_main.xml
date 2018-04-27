@@ -13,4 +13,9 @@
         android:layout_height="wrap_content"
         android:text="button"/>
 
+
+    <com.chao.practice.anim.MyView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
 </LinearLayout>
